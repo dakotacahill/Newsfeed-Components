@@ -113,3 +113,50 @@ const data = [
 
 */
 
+function createFeed(content){
+  const div = document.createElement('div');
+  const title = document.createElement('h2');
+  const para = document.createElement('p');
+  const date = document.createElement('p');
+  const expand = document.createElement('span');
+  const open = document.createElement('button');
+  const close = document.createElement('button');
+  const paraContent = document.createElement('div');
+
+
+  div.classList.add('article')
+  date.classList.add('date');
+  expand.classList.add('expandButton');
+  open.classList.add('expandButton')
+  close.classList.add('expandButton', 'close');
+
+  div.appendChild(title);
+  div.appendChild(date);
+  div.appendChild(paraContent);
+  paraContent.appendChild(para);
+  div.appendChild(expand);
+  expand.appendChild(open);
+  expand.appendChild(close);
+
+  
+  title.textContent = content.title;
+  para.textContent = content.firstParagraph + content.secondParagraph + content.thirdParagraph;
+  date.textContent = content.date;
+  open.textContent = '\u25bc';
+  close.textContent = '\u25b2';
+  paraContent.style.paddingBottom = '5px';
+
+
+  expand.addEventListener('click', e => {
+    div.classList.toggle('article-open');
+    close.classList.toggle('close');    
+  })
+
+  return div
+}
+
+const parentArticle = document.querySelector('.articles');
+
+data.map( el => {
+  parentArticle.appendChild(createFeed(el));
+})
